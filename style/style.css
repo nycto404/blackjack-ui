@@ -1,0 +1,56 @@
+:root {
+    --background-color: white;
+    --color: black;
+    --primary-color: #6f65ff6b;
+    --secondary-color: #65ffa58c;
+    --log-container-color: #dadada44;
+}
+
+[data-theme="dark"] {
+    --background-color: rgb(37, 37, 37);
+    --color: white;
+    --primary-color: #00868683;
+    --secondary-color: #46067a;
+    --log-container-color: #27272742;
+}
+
+html, body, #new_bet{
+    background-color: var(--background-color);
+    color: var(--color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
+}
+
+nav {
+    background-color: #0d6efd;
+    color: var(--color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#navbar-toggler {
+    background-color: var(--background-color);
+}
+
+#navbar-toggler span {
+    color: white;
+}
+
+
+#game_cards {
+    text-align: center;
+    display: inline-block;
+}
+
+#dealer, #player {
+    display: inline-block;
+    text-align: center;
+}
+
+#game_actions {
+    text-align: center;
+}
+
+#winner {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
