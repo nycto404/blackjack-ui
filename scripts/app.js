@@ -30,7 +30,6 @@ const standButton = document.getElementById("stand_button");
 
 const pBalanceLabel = document.getElementById("player_balance");
 const dBalanceLabel = document.getElementById("dealer_balance");
-const winnerElement = document.getElementById("winner");
 const pHandDiv = document.getElementById("player_cards");
 const dHandDiv = document.getElementById("dealer_cards");
 const pHand = document.getElementById("player_hand");
@@ -108,13 +107,13 @@ class Dealer {
             deck.push(CARD_SYMBOLS[card] + CARD_TYPES[3]);
           }
           console.log("Deck length: " + deck.length);
-          console.log(deck);
+          //console.log(deck);
           return deck;
     }
 
     // Draw a random card from the deck
     drawCard(deck) {
-        console.log(deck);
+        //console.log(deck);
         console.log("Drawing card...")
         let randomIndex = Math.floor(Math.random() * deck.length);
         let randomCard = deck[randomIndex];
@@ -246,12 +245,13 @@ p = new Player("", 100, [], 0, 10);
 
 // Change the bet
 function changeBet() {
-    p.bet = parseInt(newBet.value);
-    console.log(typeof(p.bet));
-    if (isNaN(p.bet)) {
+    console.log("changeBet");
+    console.log(newBet.value);
+    if (newBet.value === "" || isNaN(newBet.value)) {
         alert('Please enter a number!')
     } else {
         gamePhase = "deal_cards";
+        p.bet = parseInt(newBet.value);
         updateUI();
     }
 }
@@ -386,25 +386,19 @@ function displayWinner(winner, blackJack) {
     if (blackJack === true) {
         document.body.style.backgroundColor = "green";
     }
-    winnerElement.textContent = winner.toUpperCase();
     if (winner === "player") {
-        winnerElement.style.color = "green";
         pHandDiv.style.backgroundColor = "green"
         dHandDiv.style.backgroundColor = "red"
     } else if (winner === "dealer") {
-        winnerElement.style.color = "red";
         pHandDiv.style.backgroundColor = "red"
         dHandDiv.style.backgroundColor = "green"
     } else {
-        winnerElement.style.color = "grey";
         pHandDiv.style.backgroundColor = "grey"
         dHandDiv.style.backgroundColor = "grey"
     }
     console.log(p.balance, d.balance);
     setTimeout(function() {
         document.body.style.backgroundColor = "";
-        winnerElement.textContent = "";
-        winnerElement.style.color = "";
         pHandDiv.style.backgroundColor = ""
         dHandDiv.style.backgroundColor = ""
         d.initializeGame();
