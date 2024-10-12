@@ -30,10 +30,12 @@ const standButton = document.getElementById("stand_button");
 
 const pBalanceLabel = document.getElementById("player_balance");
 const dBalanceLabel = document.getElementById("dealer_balance");
-const pHandDiv = document.getElementById("player_cards");
-const dHandDiv = document.getElementById("dealer_cards");
+const pDiv = document.getElementById("player");
+const dDiv = document.getElementById("dealer");
 const pHand = document.getElementById("player_hand");
 const dHand = document.getElementById("dealer_hand");
+const pCardHeader = document.getElementById("player_card_header");
+const dCardHeader = document.getElementById("dealer_card_header");
 const pHandValue = document.getElementById("player_hand_value");
 const dHandValue = document.getElementById("dealer_hand_value");
 const history = document.getElementById("history");
@@ -60,6 +62,12 @@ let splitPossible = false;
 let aceSplit = false;
 let bust = false;
 let gamePhase = "deal_cards";
+
+// Save balances to localstorage
+let saveBalances = () => {
+    localStorage.setItem('palyerBalance', p.balance);
+    localStorage.setItem('dealerBalance', d.balance);
+}
 
 // Player class
 class Player {
@@ -387,23 +395,23 @@ function displayWinner(winner, blackJack) {
         document.body.style.backgroundColor = "green";
     }
     if (winner === "player") {
-        pHandDiv.style.backgroundColor = "green"
-        dHandDiv.style.backgroundColor = "red"
+        pCardHeader.style.backgroundColor = "green"
+        dCardHeader.style.backgroundColor = "red"
     } else if (winner === "dealer") {
-        pHandDiv.style.backgroundColor = "red"
-        dHandDiv.style.backgroundColor = "green"
+        pCardHeader.style.backgroundColor = "red"
+        dCardHeader.style.backgroundColor = "green"
     } else {
-        pHandDiv.style.backgroundColor = "grey"
-        dHandDiv.style.backgroundColor = "grey"
+        pCardHeader.style.backgroundColor = "grey"
+        dCardHeader.style.backgroundColor = "grey"
     }
     console.log(p.balance, d.balance);
     setTimeout(function() {
         document.body.style.backgroundColor = "";
-        pHandDiv.style.backgroundColor = ""
-        dHandDiv.style.backgroundColor = ""
+        pCardHeader.style.backgroundColor = ""
+        dCardHeader.style.backgroundColor = ""
         d.initializeGame();
         updateUI();
-}, 1000);
+    }, 1000);
     addStats();
     updateBalanceChart();
 }
@@ -480,20 +488,20 @@ function appendHistory() {
     history.appendChild(li); 
 }
 
-let balanceChart = new Chart(balanceChartCanvas, {
-    type: "line",
-    data: {
-        labels: games,
-        datasets: [{
-            label: "Player balance history",
-            data: balanceHistory,
-            fill: false,
-            borderColor: "rgb(75, 192, 192",
-            tension: 0.1
-        }]
-    },
-    options: {}
-});
+// let balanceChart = new Chart(balanceChartCanvas, {
+//     type: "line",
+//     data: {
+//         labels: games,
+//         datasets: [{
+//             label: "Player balance history",
+//             data: balanceHistory,
+//             fill: false,
+//             borderColor: "rgb(75, 192, 192",
+//             tension: 0.1
+//         }]
+//     },
+//     options: {}
+// });
 
 // Eventhandlers
 changeBetButton.addEventListener("click", changeBet);
