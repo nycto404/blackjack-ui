@@ -368,9 +368,8 @@ function double(d) {
             updateUI();
         }
         gamePhase = "deal_cards";
+        p.bet = p.bet/2; // Reversing bet to previous value
         displayWinner(winner, blackJack);
-        p.bet = p.bet/2;
-        console.info("---------------------------------------------------------------------------------------------");
         } else {
         console.log("Doubling not allowed...");
         alert("Double not allowed...")
