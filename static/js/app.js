@@ -8,6 +8,8 @@ const ACE_OF_SPADES = `
 '------'
 `;
 
+console.log(ACE_OF_SPADES);
+
 // 1. Choose bet 
 // 2. Deal cards when ready (Button)
 // 3. Check for Black Jack
@@ -264,7 +266,7 @@ class Dealer {
             d.balance -= bet;
         } else if (winner == "player" && blackJack === true) {
             p.balance += bet*2.5;
-            d.balance -= bet;
+            d.balance -= bet*1.5;
         }
     }
 }
@@ -309,6 +311,7 @@ function dealCards() {
     updateUI();
 
     blackJack = d.checkBlackJack(p.handValue);
+    // blackJack = true;
 
     if (blackJack) {
         winner = "player";
@@ -484,11 +487,13 @@ function updateUI() {
         splitButton.disabled = true;
         standButton.disabled = true;
         // quitButton.disabled = false;
+        resetButton.disabled = false;
     } else if (gamePhase === "user_action") {
         changeBetButton.disabled = true;
         dealButton.disabled = true;
         hitButton.disabled = false;
         doubleButton.disabled = false;
+        resetButton.disabled = true;
 
         if (d.checkSplitPossible(p.hand)[0] === true) {
             splitButton.disabled = false;

@@ -42,7 +42,16 @@ footer {
     align-items: center;
     justify-content: center;
     background-color: var(--bs-green);
-    
+}
+
+#blackjack_message {
+    position: absolute;
+    top:50%;
+    bottom: 50%;
+    left: 50%;
+    right: 50%;
+    text-align: center;
+    display: none;
 }
 
 #game_cards {
