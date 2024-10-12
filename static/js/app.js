@@ -27,6 +27,7 @@ const doubleButton = document.getElementById("double_button");
 const splitButton = document.getElementById("split_button");
 const standButton = document.getElementById("stand_button");
 // const quitButton = document.getElementById("quit_button");
+const resetButton = document.getElementById("reset_button");
 
 const pBalanceLabel = document.getElementById("player_balance");
 const dBalanceLabel = document.getElementById("dealer_balance");
@@ -63,17 +64,37 @@ let aceSplit = false;
 let bust = false;
 let gamePhase = "deal_cards";
 
+// Save default balances on first start
+let saveDefaultBalances = () => {
+    console.log('saveDefaultBalances')
+    if (!localStorage.getItem('playerBalance') || !localStorage.getItem('dealerBalance')) {
+        localStorage.setItem('playerBalance', 100);
+        localStorage.setItem('dealerBalance', 100);
+    }
+}
+
 // Save balances to localstorage
 let saveBalances = () => {
-    localStorage.setItem('palyerBalance', p.balance);
+    console.log('saveBalances')
+    localStorage.setItem('playerBalance', p.balance);
     localStorage.setItem('dealerBalance', d.balance);
+}
+
+let resetBalances = () => {
+    console.log('resetBalances');
+    // TODO: Ask for confirmation with alert
+    p.balance = 100;
+    d.balance = 100;
+    localStorage.setItem('playerBalance', 100);
+    localStorage.setItem('dealerBalance', 100);
+    updateUI();
 }
 
 // Player class
 class Player {
     constructor(name, balance, hand, hand_value, bet) {
         this.name = name;
-        this.balance = balance;
+        this.balance = parseInt(balance);
         this.hand = hand;
         this.handValue = hand_value;
         this.bet = bet;
@@ -83,7 +104,7 @@ class Player {
 // Dealer class
 class Dealer {
     constructor(balance, hand, hand_visible, hand_value, hand_value_visible) {
-        this.balance = balance;
+        this.balance = parseInt(balance);
         this.hand = hand;
         this.hand_visible = hand_visible;
         this.handValue = hand_value;
@@ -233,6 +254,7 @@ class Dealer {
     }
 
     cashTransactions(bet, winner, blackJack) {
+        console.log(typeof(parseInt(d.balance)));
         if (winner == "dealer") {
             d.balance += bet;
         } else if (winner == "draw") {
@@ -246,10 +268,6 @@ class Dealer {
         }
     }
 }
-
-// Create instances of Dealer and Player
-d = new Dealer(100, [], [], 0, 0);
-p = new Player("", 100, [], 0, 10);
 
 // Change the bet
 function changeBet() {
@@ -413,6 +431,7 @@ function displayWinner(winner, blackJack) {
         updateUI();
     }, 1000);
     addStats();
+    saveBalances();
     updateBalanceChart();
 }
 
@@ -436,6 +455,7 @@ function quit() {
 }
 
 function updateUI() {
+    console.log('updateUI');
     pBalanceLabel.textContent = p.balance;
     dBalanceLabel.textContent = d.balance;
     currentBetLabel.textContent = p.bet;
@@ -514,6 +534,12 @@ splitButton.addEventListener("click", split);
 standButton.addEventListener("click", function() {
     stand(d, deck);
 });
+splitButton.addEventListener("click", split);
 // quitButton.addEventListener("click", quit);
+resetButton.addEventListener("click", resetBalances);
 
+saveDefaultBalances();
+// Create instances of Dealer and Player
+d = new Dealer(localStorage.getItem('dealerBalance'), [], [], 0, 0);
+p = new Player("", localStorage.getItem('playerBalance'), [], 0, 10);
 updateUI();
