@@ -84,12 +84,15 @@ let saveBalances = () => {
 
 let resetBalances = () => {
     console.log('resetBalances');
+    if (confirm('Are you sure you want to reset?')) {
+        p.balance = 100;
+        d.balance = 100;
+        localStorage.setItem('playerBalance', 100);
+        localStorage.setItem('dealerBalance', 100);
+        updateUI();
+
+    }
     // TODO: Ask for confirmation with alert
-    p.balance = 100;
-    d.balance = 100;
-    localStorage.setItem('playerBalance', 100);
-    localStorage.setItem('dealerBalance', 100);
-    updateUI();
 }
 
 // Player class
