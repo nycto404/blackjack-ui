@@ -515,20 +515,20 @@ function appendHistory() {
     history.appendChild(li); 
 }
 
-// let balanceChart = new Chart(balanceChartCanvas, {
-//     type: "line",
-//     data: {
-//         labels: games,
-//         datasets: [{
-//             label: "Player balance history",
-//             data: balanceHistory,
-//             fill: false,
-//             borderColor: "rgb(75, 192, 192",
-//             tension: 0.1
-//         }]
-//     },
-//     options: {}
-// });
+let balanceChart = new Chart(balanceChartCanvas, {
+    type: "line",
+    data: {
+        labels: games,
+        datasets: [{
+            label: "Player balance history",
+            data: balanceHistory,
+            fill: false,
+            borderColor: "rgb(75, 192, 192",
+            tension: 0.1
+        }]
+    },
+    options: {}
+});
 
 // Eventhandlers
 changeBetButton.addEventListener("click", changeBet);

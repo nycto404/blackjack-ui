@@ -19,6 +19,17 @@ html, body, #new_bet{
     color: var(--color);
     transition: background-color 0.3s ease, color 0.3s ease;
     height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
 }
 
 nav {
